@@ -2,6 +2,7 @@
 let round = 1;
 let computerTotal =0;
 let playerTotal =0;
+let choice;
 
 function computerPlay() {
     let comHand = Math.floor(Math.random() * 3) + 1;
@@ -24,25 +25,53 @@ function roundChange() {
 function playRound(playerChoice) {
    if(round <= 5) {
     event.preventDefault();
-    const playerHand = playerChoice.getAttribute("data-hand");
+    const playerHand =  parseInt(playerChoice.getAttribute("data-hand"));
     const computerHand = computerPlay();
     let winningHand;
+
+    let player = yourChoice(playerHand);
+    let computer = yourChoice(computerHand);
+
     if (playerHand == 1 && computerHand == 2 || playerHand == 2 && computerHand == 3 || playerHand == 3 && computerHand == 1) {
-       winningHand = "Computer Wins Round " + round;
+       winningHand = "Computer Plays " + computer + ". Player Plays " + player + ". Computer Wins Round " + round;
        computerTotal = computerTotal + 1;
-       console.log(computerTotal)
     } else if (playerHand == 1 && computerHand == 3 || playerHand == 2 && computerHand == 1 || playerHand == 3 && computerHand == 2) {
-        winningHand = "Player Wins Round " + round;
+        winningHand = "Computer Plays " + computer + ", Player Plays " + player + ".  Player Wins Round " + round;
         playerTotal = playerTotal + 1;
-        console.log(playerTotal)
     } else if (playerHand == computerHand) {
-        winningHand = "Draw on Round " + round;
+        winningHand = "Computer Plays " + computer + ", Player Plays " + player + ".  Draw on Round " + round;
     }
     appendResults(winningHand);      
     whosWinning();
    }
 }
 
+
+function resetGame() {
+    round = 1;
+    document.getElementById("totalResultLists").innerHTML = "";
+    document.getElementById("resultLists").innerHTML = "";
+}
+
+function yourChoice(n){
+    let s;
+    switch (n) {
+        case 1:
+        s = "Rock";
+        break;
+
+
+        case 2:
+        s = "Paper";
+        break;
+
+        case 3:
+        s = "Scissors";
+        break;
+    }   
+
+    return s;
+}
 function whosWinning() {
 if(round == 5) {
     if(computerTotal > playerTotal) {
