@@ -41,7 +41,10 @@ function playRound(playerChoice) {
     } else if (playerHand == computerHand) {
         winningHand = "Computer Plays " + computer + ", Player Plays " + player + ".  Draw on Round " + round;
     }
-    appendResults(winningHand);      
+    appendResults(winningHand);
+    let currentResult = document.querySelector("#Round"+round);
+    currentResult.classList.toggle("hide");
+    currentResult.classList.add("fade");
     whosWinning();
    }
 }
@@ -76,18 +79,21 @@ function whosWinning() {
 if(round == 5) {
     if(computerTotal > playerTotal) {
     var newItem = document.createElement("LI");
+    newItem.classList.add("fade");
     var textnode = document.createTextNode("Computer Wins! Try Again!");
     newItem.appendChild(textnode);
     var list = document.getElementById("totalResultLists");
     list.insertBefore(newItem, list.childNodes[0]);
     } else if (computerTotal == playerTotal) {
         var newItem = document.createElement("LI");
+        newItem.classList.add("fade");
     var textnode = document.createTextNode("Draw! Try Again!");
     newItem.appendChild(textnode);
     var list = document.getElementById("totalResultLists");
     list.insertBefore(newItem, list.childNodes[0]);
     } else {
         var newItem = document.createElement("LI");
+        newItem.classList.add("fade");
     var textnode = document.createTextNode("Player Wins! Good Work!");
     newItem.appendChild(textnode);
     var list = document.getElementById("totalResultLists");
@@ -99,6 +105,8 @@ if(round == 5) {
 function appendResults(s) {
     if(round <= 5) {
     var newItem = document.createElement("LI");
+    newItem.classList.add('hide');
+    newItem.setAttribute("id", "Round"+round);
     var textnode = document.createTextNode(s);
     newItem.appendChild(textnode);
     var list = document.getElementById("resultLists");
